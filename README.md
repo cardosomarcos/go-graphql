@@ -1,24 +1,6 @@
-### Golang + graphQL
+## Golang + graphQL
 
-`
-fragment PostFragment on Post {
-  id
-  title
-  body: body
-}
+### Test graphql 
 
-fragment WithComments on Post {
-  comments {
-    id
-    email
-    name
-  }
-}
-
-{
-  post(id: 5) {
-    ...PostFragment
-    ...WithComments
-  }
-}
-`
+Using insomnia: 
+http://localhost:3000/graphql
