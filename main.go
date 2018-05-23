@@ -4,12 +4,16 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"go-graphql/gql"
+	"go-graphql/gql/db"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"runtime"
 
 	"github.com/graphql-go/graphql"
 	gqlhandler "github.com/graphql-go/graphql-go-handler"
+	mgo "gopkg.in/mgo.v2"
 )
 
 type Post struct {
@@ -28,22 +32,24 @@ type Comment struct {
 }
 
 func createQueryType(postType *graphql.Object) graphql.ObjectConfig {
-	return graphql.ObjectConfig{Name: "QueryType", Fields: graphql.Fields{
-		"post": &graphql.Field{
-			Type: postType,
-			Args: graphql.FieldConfigArgument{
-				"id": &graphql.ArgumentConfig{
-					Type: graphql.NewNonNull(graphql.Int),
+	return graphql.ObjectConfig{
+		Name: "QueryType",
+		Fields: graphql.Fields{
+			"post": &graphql.Field{
+				Type: postType,
+				Args: graphql.FieldConfigArgument{
+					"id": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.Int),
+					},
+				},
+				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
+					id := p.Args["id"]
+					v, _ := id.(int)
+					log.Printf("fetching post with id: %d", v)
+					return fetchPostByiD(v)
 				},
 			},
-			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-				id := p.Args["id"]
-				v, _ := id.(int)
-				log.Printf("fetching post with id: %d", v)
-				return fetchPostByiD(v)
-			},
-		},
-	}}
+		}}
 }
 
 func createPostType(commentType *graphql.Object) *graphql.Object {
@@ -140,20 +146,12 @@ func fetchCommentsByPostID(id int) ([]Comment, error) {
 }
 
 func main() {
-	schema, err := graphql.NewSchema(graphql.SchemaConfig{
-		Query: graphql.NewObject(
-			createQueryType(
-				createPostType(
-					createCommentType(),
-				),
-			),
-		),
-	})
-	if err != nil {
-		log.Fatalf("failed to create new schema, error: %v", err)
-	}
+	db.Mongo, _ = mgo.Dial("mongodb://127.0.0.1:27017")
+	db.Mongo.SetMode(mgo.Monotonic, true)
+	db.Mongo.SetPoolLimit(600)
+	runtime.GOMAXPROCS(runtime.NumCPU() - 1)
 	handler := gqlhandler.New(&gqlhandler.Config{
-		Schema: &schema,
+		Schema: &gql.Schema,
 	})
 	http.Handle("/graphql", handler)
 	log.Println("Server started at http://localhost:3000/graphql")
