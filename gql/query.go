@@ -7,10 +7,11 @@ import (
 	"github.com/graphql-go/graphql"
 )
 
-func GetEpisode() *graphql.Object {
+func GetRootQuery() *graphql.Object {
 	return graphql.NewObject(
 		graphql.ObjectConfig{
-			Name: "episode",
+			Name:        "rootQuery",
+			Description: "rootQuery",
 			Fields: graphql.Fields{
 				"episode": &graphql.Field{
 					Type:        types.Episode,
@@ -22,25 +23,18 @@ func GetEpisode() *graphql.Object {
 					},
 					Resolve: resolvers.GetEpisode,
 				},
+				"user": &graphql.Field{
+					Type:        types.User,
+					Description: "get user",
+					Args: graphql.FieldConfigArgument{
+						"userid": &graphql.ArgumentConfig{
+							Type: graphql.NewNonNull(graphql.Int),
+						},
+					},
+					Resolve: resolvers.GetUser,
+				},
+				"users" 
 			},
 		},
 	)
-}
-
-func GetUser() *graphql.Object {
-	return graphql.NewObject(graphql.ObjectConfig{
-		Name: "user",
-		Fields: graphql.Fields{
-			"user": &graphql.Field{
-				Type:        types.User,
-				Description: "get user",
-				Args: graphql.FieldConfigArgument{
-					"userid": &graphql.ArgumentConfig{
-						Type: graphql.NewNonNull(graphql.Int),
-					},
-				},
-				Resolve: resolvers.GetUser,
-			},
-		},
-	})
 }
