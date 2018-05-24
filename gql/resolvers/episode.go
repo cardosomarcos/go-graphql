@@ -1,7 +1,6 @@
 package resolvers
 
 import (
-	"fmt"
 	"go-graphql/gql/db"
 
 	"gopkg.in/mgo.v2/bson"
@@ -10,14 +9,14 @@ import (
 )
 
 type Episode struct {
-	Id    bson.ObjectId `json:"id"`
+	Id    bson.ObjectId `json:"id" bson:"_id"`
 	Title string        `json:"title"`
 }
 
 func GetEpisode(params graphql.ResolveParams) (interface{}, error) {
-	id := params.Args["id"].(bson.ObjectId)
+	episodeid := params.Args["id"].(string)
 	var res Episode
-	_ = db.Mongo.DB("demo").C("episode").Find(bson.M{"id": id}).One(&res)
+	_ = db.Mongo.DB("demo").C("episode").Find(bson.M{"_id": bson.ObjectIdHex(episodeid)}).One(&res)
 	return res, nil
 }
 
@@ -29,7 +28,6 @@ func CreateEpisode(params graphql.ResolveParams) (interface{}, error) {
 		Id:    id,
 		Title: title,
 	}
-	fmt.Println("episode: ", episode)
 	_ = db.Mongo.DB("demo").C("episode").Insert(&episode)
 	return &episode, nil
 }

@@ -17,7 +17,7 @@ var Query = graphql.NewObject(
 				Description: "get episode",
 				Args: graphql.FieldConfigArgument{
 					"id": &graphql.ArgumentConfig{
-						Type: graphql.NewNonNull(graphql.Int),
+						Type: graphql.NewNonNull(graphql.String),
 					},
 				},
 				Resolve: resolvers.GetEpisode,
@@ -27,7 +27,7 @@ var Query = graphql.NewObject(
 				Description: "get author",
 				Args: graphql.FieldConfigArgument{
 					"id": &graphql.ArgumentConfig{
-						Type: graphql.NewNonNull(graphql.Int),
+						Type: graphql.NewNonNull(graphql.String),
 					},
 				},
 				Resolve: resolvers.GetAuthor,

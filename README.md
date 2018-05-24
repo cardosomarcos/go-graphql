@@ -19,23 +19,23 @@ This application expose a single endpoints '/graphql' wich accepts both queries 
 curl --request POST \
   --url http://localhost:3000/graphql \
   --header 'content-type: application/json' \
-  --data '{"query":"{\n  episode(id: 1) {\n\t\ttitle\n\t}\n\tauthor(id: 1){\n\t\tname\n\t}\n}"}'
+  --data '{"query":"{\n\tauthor(id: \"5b071dc428c1e324878952b7\"){\n\t\tid, name, age\n\t}\n\t\n\tepisode(id: \"5b0723d828c1e33e9e3d8baf\"){\n\t\tid, title\n\t}\n\t\n}"}'
 ```
 
-- Get episode field
+- Get episode
 ``` 
 curl --request POST \
   --url http://localhost:3000/graphql \
   --header 'content-type: application/json' \
-  --data '{"query":"{\n  episode(id: 1) {\n\t\ttitle\n\t}\n}"}'
+  --data '{"query":"{\n\n\tepisode(id: \"5b0723d828c1e33e9e3d8baf\"){\n\t\tid, title\n\t}\n\t\n}"}'
 ```
 
-- Get author field
+- Get author
 ``` 
 curl --request POST \
   --url http://localhost:3000/graphql \
   --header 'content-type: application/json' \
-  --data '{"query":"{\n \tauthor(id: 1){\n\t\tname\n\t}\n}"}'
+  --data '{"query":"{\n\tauthor(id: \"5b071dc428c1e324878952b7\"){\n\t\tid, name, age\n\t}\n\t\n\n\t\n}"}'
 ```
 - Insert author 
 ```

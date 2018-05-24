@@ -16,9 +16,9 @@ type Author struct {
 }
 
 func GetAuthor(params graphql.ResolveParams) (interface{}, error) {
-	authorid := params.Args["id"].(bson.ObjectId)
+	authorid := params.Args["id"].(string)
 	var res Author
-	_ = db.Mongo.DB("demo").C("author").Find(bson.M{"id": authorid}).One(&res)
+	_ = db.Mongo.DB("demo").C("author").Find(bson.M{"_id": bson.ObjectIdHex(authorid)}).One(&res)
 	return res, nil
 }
 
