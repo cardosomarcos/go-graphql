@@ -44,3 +44,11 @@ curl --request POST \
   --header 'content-type: application/json' \
   --data '{"query":"mutation {\n\tcreateAuthor (name: \"Cardoso Marcos\", age: 22){\n\t\tid, name, age\n\t}\n\t\n}"}'
 ```
+
+- Insert episode
+```
+curl --request POST \
+  --url http://localhost:3000/graphql \
+  --header 'content-type: application/json' \
+  --data '{"query":"mutation {\n\tcreateEpisode (title: \"The life of Pable\"){\n\t\tid, title\n\t}\n\t\n}"}'
+```
