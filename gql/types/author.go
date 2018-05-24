@@ -8,7 +8,7 @@ var Author = graphql.NewObject(graphql.ObjectConfig{
 	Name: "author",
 	Fields: graphql.Fields{
 		"id": &graphql.Field{
-			Type:        graphql.Int,
+			Type:        graphql.NewNonNull(graphql.Int),
 			Description: "id",
 		},
 		"name": &graphql.Field{

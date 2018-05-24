@@ -7,33 +7,31 @@ import (
 	"github.com/graphql-go/graphql"
 )
 
-func GetRootQuery() *graphql.Object {
-	return graphql.NewObject(
-		graphql.ObjectConfig{
-			Name:        "rootQuery",
-			Description: "rootQuery",
-			Fields: graphql.Fields{
-				"episode": &graphql.Field{
-					Type:        types.Episode,
-					Description: "get episode",
-					Args: graphql.FieldConfigArgument{
-						"id": &graphql.ArgumentConfig{
-							Type: graphql.NewNonNull(graphql.Int),
-						},
+var Query = graphql.NewObject(
+	graphql.ObjectConfig{
+		Name:        "rootQuery",
+		Description: "rootQuery",
+		Fields: graphql.Fields{
+			"episode": &graphql.Field{
+				Type:        types.Episode,
+				Description: "get episode",
+				Args: graphql.FieldConfigArgument{
+					"id": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.Int),
 					},
-					Resolve: resolvers.GetEpisode,
 				},
-				"author": &graphql.Field{
-					Type:        types.Author,
-					Description: "get author",
-					Args: graphql.FieldConfigArgument{
-						"id": &graphql.ArgumentConfig{
-							Type: graphql.NewNonNull(graphql.Int),
-						},
+				Resolve: resolvers.GetEpisode,
+			},
+			"author": &graphql.Field{
+				Type:        types.Author,
+				Description: "get author",
+				Args: graphql.FieldConfigArgument{
+					"id": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.Int),
 					},
-					Resolve: resolvers.GetAuthor,
 				},
+				Resolve: resolvers.GetAuthor,
 			},
 		},
-	)
-}
+	},
+)
