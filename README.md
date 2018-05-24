@@ -11,7 +11,7 @@ Testing GraphQL API implemented in Go and MongoDB
 
 
 ## Commands
-This application expose a single endpoints '/graphql' wich accepts both queries and ~~mutations~~
+This application expose a single endpoints '/graphql' wich accepts both queries and mutations
 
 
 - Get all fields
