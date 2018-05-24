@@ -25,4 +25,14 @@ var Mutation = graphql.NewObject(
 				},
 				Resolve: resolvers.CreateAuthor,
 			},
+			"createEpisode": &graphql.Field{
+				Type:        types.Episode,
+				Description: "create episode",
+				Args: graphql.FieldConfigArgument{
+					"title": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.String),
+					},
+				},
+				Resolve: resolvers.CreateEpisode,
+			},
 		}})
