@@ -9,13 +9,13 @@ import (
 )
 
 type Episode struct {
-	Entity_id int    `json:"entity_id"`
-	Title     string `json:"title"`
+	Id    int    `json:"id"`
+	Title string `json:"title"`
 }
 
 func GetEpisode(params graphql.ResolveParams) (interface{}, error) {
-	entity_id := params.Args["entity_id"].(int)
+	id := params.Args["id"].(int)
 	var res Episode
-	_ = db.Mongo.DB("demo").C("episode").Find(bson.M{"entity_id": entity_id}).One(&res)
+	_ = db.Mongo.DB("demo").C("episode").Find(bson.M{"id": id}).One(&res)
 	return res, nil
 }

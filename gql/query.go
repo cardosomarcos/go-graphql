@@ -17,23 +17,22 @@ func GetRootQuery() *graphql.Object {
 					Type:        types.Episode,
 					Description: "get episode",
 					Args: graphql.FieldConfigArgument{
-						"entity_id": &graphql.ArgumentConfig{
+						"id": &graphql.ArgumentConfig{
 							Type: graphql.NewNonNull(graphql.Int),
 						},
 					},
 					Resolve: resolvers.GetEpisode,
 				},
-				"user": &graphql.Field{
-					Type:        types.User,
-					Description: "get user",
+				"author": &graphql.Field{
+					Type:        types.Author,
+					Description: "get author",
 					Args: graphql.FieldConfigArgument{
-						"userid": &graphql.ArgumentConfig{
+						"id": &graphql.ArgumentConfig{
 							Type: graphql.NewNonNull(graphql.Int),
 						},
 					},
-					Resolve: resolvers.GetUser,
+					Resolve: resolvers.GetAuthor,
 				},
-				"users" 
 			},
 		},
 	)

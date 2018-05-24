@@ -8,7 +8,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-type User struct {
+type Author struct {
 	Id         bson.ObjectId `json:"id" bson:"_id"`
 	Name       string        `json:"name"`
 	Age        int           `json:"age"`
@@ -16,9 +16,9 @@ type User struct {
 	UpdateAt   time.Time     `json:"updateAt"`
 }
 
-func GetUser(params graphql.ResolveParams) (interface{}, error) {
-	userid := params.Args["userid"].(int)
-	var res User
-	_ = db.Mongo.DB("demo").C("user").Find(bson.M{"userid": userid}).One(&res)
+func GetAuthor(params graphql.ResolveParams) (interface{}, error) {
+	authorid := params.Args["id"].(int)
+	var res Author
+	_ = db.Mongo.DB("demo").C("author").Find(bson.M{"id": authorid}).One(&res)
 	return res, nil
 }

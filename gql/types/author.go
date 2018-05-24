@@ -4,8 +4,8 @@ import (
 	"github.com/graphql-go/graphql"
 )
 
-var User = graphql.NewObject(graphql.ObjectConfig{
-	Name: "user",
+var Author = graphql.NewObject(graphql.ObjectConfig{
+	Name: "author",
 	Fields: graphql.Fields{
 		"id": &graphql.Field{
 			Type:        graphql.Int,
@@ -13,6 +13,6 @@ var User = graphql.NewObject(graphql.ObjectConfig{
 		},
 		"name": &graphql.Field{
 			Type:        graphql.String,
-			Description: "user name",
+			Description: "author name",
 		},
 	}})
