@@ -1,9 +1,17 @@
-## Golang + graphQL
+# Golang, GraphQL e MongoDB
 
-### Test graphql 
+Testing GraphQL API implemented in Go and MongoDB
 
-Using insomnia: 
-http://localhost:3000/graphql
+##Todo 
+
+- List all authors
+- List all episodes
+- Create mutations
+- Authorization
+
+
+## Commands
+This application expose a single endpoints '/graphql' wich accepts both queries and ~~mutations~~
 
 
 - Get all fields
