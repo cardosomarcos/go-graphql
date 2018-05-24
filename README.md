@@ -37,3 +37,10 @@ curl --request POST \
   --header 'content-type: application/json' \
   --data '{"query":"{\n \tauthor(id: 1){\n\t\tname\n\t}\n}"}'
 ```
+- Insert author 
+```
+curl --request POST \
+  --url http://localhost:3000/graphql \
+  --header 'content-type: application/json' \
+  --data '{"query":"mutation {\n\tcreateAuthor (name: \"Cardoso Marcos\", age: 22){\n\t\tid, name, age\n\t}\n\t\n}"}'
+```
