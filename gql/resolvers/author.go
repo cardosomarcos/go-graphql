@@ -1,7 +1,6 @@
 package resolvers
 
 import (
-	"fmt"
 	"go-graphql/gql/db"
 	"time"
 
@@ -10,26 +9,29 @@ import (
 )
 
 type Author struct {
-	Id         int       `json:"id" bson:"_id"`
-	Name       string    `json:"name"`
-	Age        int       `json:"age"`
-	LastChange time.Time `json:"lastChange"`
-	UpdateAt   time.Time `json:"updateAt"`
+	Id         bson.ObjectId `json:"id" bson:"_id"`
+	Name       string        `json:"name"`
+	Age        int           `json:"age"`
+	LastChange time.Time     `json:"lastChange"`
+	UpdateAt   time.Time     `json:"updateAt"`
 }
 
 func GetAuthor(params graphql.ResolveParams) (interface{}, error) {
-	authorid := params.Args["id"].(int)
+	authorid := params.Args["id"].(bson.ObjectId)
 	var res Author
 	_ = db.Mongo.DB("demo").C("author").Find(bson.M{"id": authorid}).One(&res)
 	return res, nil
 }
 
 func CreateAuthor(params graphql.ResolveParams) (interface{}, error) {
+	id := bson.NewObjectId()
 	name := params.Args["name"].(string)
-	fmt.Println("chegou aqui")
-	var res Author
-	res.Name = name
-	res.Id = 2
-	//_ = db.Mongo.DB("demo").C("author").Find(bson.M{"id": authorid}).One(&res)
-	return res, nil
+	age := params.Args["age"].(int)
+	author := Author{
+		Id:   id,
+		Name: name,
+		Age:  age,
+	}
+	_ = db.Mongo.DB("demo").C("author").Insert(&author)
+	return author, nil
 }

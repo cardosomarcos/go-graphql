@@ -19,6 +19,9 @@ var Mutation = graphql.NewObject(
 					"name": &graphql.ArgumentConfig{
 						Type: graphql.NewNonNull(graphql.String),
 					},
+					"age": &graphql.ArgumentConfig{
+						Type: graphql.NewNonNull(graphql.Int),
+					},
 				},
 				Resolve: resolvers.CreateAuthor,
 			},
