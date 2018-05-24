@@ -2,7 +2,7 @@
 
 Testing GraphQL API implemented in Go and MongoDB
 
-##Todo 
+## Todo 
 
 - List all authors
 - List all episodes
