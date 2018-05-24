@@ -9,11 +9,10 @@ import (
 )
 
 type Author struct {
-	Id         bson.ObjectId `json:"id" bson:"_id"`
-	Name       string        `json:"name"`
-	Age        int           `json:"age"`
-	LastChange time.Time     `json:"lastChange"`
-	UpdateAt   time.Time     `json:"updateAt"`
+	Id       bson.ObjectId `json:"id" bson:"_id"`
+	Name     string        `json:"name"`
+	Age      int           `json:"age"`
+	UpdateAt time.Time     `json:"updateAt"`
 }
 
 func GetAuthor(params graphql.ResolveParams) (interface{}, error) {
@@ -28,9 +27,10 @@ func CreateAuthor(params graphql.ResolveParams) (interface{}, error) {
 	name := params.Args["name"].(string)
 	age := params.Args["age"].(int)
 	author := Author{
-		Id:   id,
-		Name: name,
-		Age:  age,
+		Id:       id,
+		Name:     name,
+		Age:      age,
+		UpdateAt: time.Now(),
 	}
 	_ = db.Mongo.DB("demo").C("author").Insert(&author)
 	return author, nil
