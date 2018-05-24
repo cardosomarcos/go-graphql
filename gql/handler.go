@@ -1,4 +1,0 @@
-package gql
-
-func HandlerGQL() {
-}
