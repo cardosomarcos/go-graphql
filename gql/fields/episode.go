@@ -15,7 +15,7 @@ var EpisodeQuery = &graphql.Field{
 			Type: graphql.NewNonNull(graphql.String),
 		},
 	},
-	Resolve: resolvers.GetAuthor,
+	Resolve: resolvers.GetEpisode,
 }
 
 var CreateEpisode = &graphql.Field{

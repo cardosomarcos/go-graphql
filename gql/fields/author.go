@@ -15,7 +15,7 @@ var AuthorQuery = &graphql.Field{
 			Type: graphql.NewNonNull(graphql.String),
 		},
 	},
-	Resolve: resolvers.GetEpisode,
+	Resolve: resolvers.GetAuthor,
 }
 
 var CreateAuthor = &graphql.Field{

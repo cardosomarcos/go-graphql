@@ -8,7 +8,7 @@ Testing GraphQL API implemented in Go and MongoDB
 - List all episodes
 - ~~Create mutations~~
 - Authorization
-- Migrate to serverless 
+- Migrate to serverless
 
 
 ## Commands
